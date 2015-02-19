@@ -54,8 +54,10 @@
       // call them like so: this.yourOtherFunction(this.element, this.settings).
       var self = this;
 
+      var $el = $(this.element);
+
       // Save html of element
-      this.text = $.trim( self.element.html() );
+      this.text = $.trim( $el.html() );
 
       // Find any STARTING html tags
       this.startTags = this.text.match(/<(\/?[A-Z][A-Z0-9]*)\b[^>]*>/gi);
@@ -142,7 +144,7 @@
       }
 
       // Update the element's html
-      this.element.html( this.text );
+      $el.html( this.text );
     }
   });
 
