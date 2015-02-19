@@ -23,7 +23,7 @@
   // Create the defaults once
   var pluginName = "unorphanize",
     defaults = {
-      words: 1,
+      words: 2,
       wrapEl: "",
       className: "",
       append: ""
@@ -97,7 +97,7 @@
       this.cleanWordArray = this.wordArray.filter( isWord );
 
       // Make sure word count is valid
-      if ( typeof this.settings.words !== "number" || this.settings.words < 0 || this.settings.words >= this.cleanWordArray.length ) {
+      if ( typeof this.settings.words !== "number" || this.settings.words < 2 || this.settings.words >= this.cleanWordArray.length ) {
         this.settings.words = this._defaults.words;
       }
 
@@ -129,7 +129,7 @@
       // Add &nbsp; entities
       else {
         this.lastPart = this.lastPart.split(' ').join('&nbsp;');
-        this.text = this.firstPart + this.lastPart;
+        this.text = this.firstPart + ' ' + this.lastPart;
       }
 
       // Replace the STARTING tag placeholders with the original tag code
