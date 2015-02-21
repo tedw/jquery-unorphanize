@@ -1,5 +1,5 @@
 {
-    "name": "jquery-unorphanize",
+    "name": "jquery-unorphanize-plus",
     "version": "1.0.1",
     "main": "unorphanize.jquery.js",
     "description": "Prevent orphans in text with jQuery",
