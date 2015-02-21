@@ -1,6 +1,7 @@
 //------------------------------------------------------------------------
 // jQuery Unorphanize Plugin
 //
+// Forked from https://github.com/simeydotme/jquery-unorphanize
 // Plugin boilerplate from https://github.com/jquery-boilerplate/jquery-boilerplate
 //------------------------------------------------------------------------
 
