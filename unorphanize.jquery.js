@@ -98,7 +98,7 @@
       this.cleanWordArray = this.wordArray.filter( isWord );
 
       // Make sure word count is valid
-      if ( typeof this.settings.words !== "number" || this.settings.words < 2 || this.settings.words >= this.cleanWordArray.length ) {
+      if ( typeof this.settings.words !== "number" || this.settings.words < 1 || this.settings.words >= this.cleanWordArray.length ) {
         this.settings.words = this._defaults.words;
       }
 
