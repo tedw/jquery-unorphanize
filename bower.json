@@ -29,7 +29,7 @@
         "mode_modules"
     ],
     "dependencies": {
-        "jquery": ">=1.10.2"
+        "jquery": "1.x"
     },
     "devDependencies": {
     }
