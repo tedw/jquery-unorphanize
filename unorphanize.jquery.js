@@ -162,7 +162,7 @@
       this.text = $.trim( $el.html() );
 
       // Find any STARTING html tags
-      this.startTags = this.text.match(/<(\/?[A-Z][A-Z0-9]*)\b[^>]*>/gi);
+      this.startTags = this.text.match(/<([A-Z][A-Z0-9]*)\b[^>]*>/gi);
       this.startTagsCount = ( this.startTags !== null ? this.startTags.length : 0 );
 
       // Replace STARTING tags with placeholder (e.g. __0__)
@@ -190,13 +190,27 @@
       // Create array of words from string
       this.wordArray = this.text.split(/\s+/);
 
-      // Filter out tag placeholders
-      function isWord( item ) {
-        return !( item.match(/__[0-9]+__$/gi) || item.match(/~~[0-9]+~~$/gi) );
-      }
+      // Save the _word_ positions in the original array
+      var wordId = 1;
+      this.wordPositions = [];
 
-      // Remove single tag placeholders from word array (they don't count as words)
-      this.cleanWordArray = this.wordArray.filter( isWord );
+      // Create new array without any placeholder tags, which would throw off word count
+      this.cleanWordArray = this.wordArray.map( function(item, i) {
+        // Check for a single HTML tag replacement (e.g. <br> tag --> __1__)
+        if ( !!item.match(/__[0-9]+__\b/gi) || !!item.match(/~~[0-9]+~~\b/gi) ) {
+          // Increment wordID to help us track the word positions between the two arrays
+          wordId++;
+          return false;
+        }
+        else {
+          // Save word position
+          self.wordPositions.push(i);
+          return item;
+        }
+      });
+
+      // Remove false values from array
+      this.cleanWordArray = this.cleanWordArray.filter( function(value) { return value; } );
 
       // Make sure word count is valid
       if ( typeof this.settings.words !== "number" || this.settings.words < 1 || this.settings.words >= this.cleanWordArray.length ) {
@@ -204,10 +218,12 @@
       }
 
       // Find word where plugin should start
-      this.lastWord = this.cleanWordArray.length - this.settings.words;
+      this.lastWordPos = this.cleanWordArray.length - this.settings.words;
+      // console.log('this.lastWordPos', this.lastWordPos, this.cleanWordArray[this.lastWordPos]);
 
       // Find word position in original array
-      this.lastWordIndex = this.wordArray.indexOf( self.cleanWordArray[ self.lastWord ] );
+      this.lastWordIndex = this.wordPositions[ this.lastWordPos ];
+      // console.log('this.lastWordIndex', this.lastWordIndex, this.wordArray[ this.lastWordPos ]);
 
       // Split the original word array into two parts
       this.firstPart = self.wordArray.slice( 0, self.lastWordIndex ).join(' ');
