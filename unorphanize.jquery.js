@@ -213,8 +213,18 @@
       this.cleanWordArray = this.cleanWordArray.filter( function(value) { return value; } );
 
       // Make sure word count is valid
-      if ( typeof this.settings.words !== "number" || this.settings.words < 1 || this.settings.words >= this.cleanWordArray.length ) {
+      if ( typeof this.settings.words !== "number" || this.settings.words < 1 ) {
+        console.log('default');
         this.settings.words = this._defaults.words;
+      }
+      // If only 1 orphan is specified, default to wrapping word, not using &nbsp;
+      else if ( this.settings.words === 1 ) {
+        this.settings.wrapEl = ( this.settings.wrapEl.length ? this.settings.wrapEl : "span" );
+        this.settings.className = ( this.settings.className.length ? this.settings.className : "u-nowrap" );
+      }
+      // Don't allow orphan count to exceed the number of words
+      else if ( this.settings.words >= this.cleanWordArray.length ) {
+        this.settings.words = this.cleanWordArray.length;
       }
 
       // Find word where plugin should start
