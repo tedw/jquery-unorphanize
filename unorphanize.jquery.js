@@ -214,7 +214,6 @@
 
       // Make sure word count is valid
       if ( typeof this.settings.words !== "number" || this.settings.words < 1 ) {
-        console.log('default');
         this.settings.words = this._defaults.words;
       }
       // If only 1 orphan is specified, default to wrapping word, not using &nbsp;
