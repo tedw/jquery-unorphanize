@@ -158,6 +158,11 @@
 
       var $el = $(this.element);
 
+      // Exit if no text
+      if ( $.trim( $el.text() ).length === 0 ) {
+        return false;
+      }
+
       // Save html of element
       this.text = $.trim( $el.html() );
 
