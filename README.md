@@ -1,42 +1,42 @@
-jQuery Unorphanize
---------------------
-A small jQuery method for preventing or stopping orphans (widows) in text, paragraphs or whatever (unhindered by HTML).  
-`~ 500 bytes minified`  
+#jQuery Unorphanize
 
-###How it works
+--------------------
+![gzip file size](https://badge-size.herokuapp.com/tedw/jquery-unorphanize/master/unorphanize.jquery.min.js?compression=gzip)
+
+A jQuery helper for preventing [orphans](http://en.wikipedia.org/wiki/Widows_and_orphans).
+
+##Basic Use
 ```js 
 $(".selector").unorphanize();
 ```
-**Unorphanize** will take the jQuery selector (` $(".selector")`) you supply 
-and without disturbing theinner html's markup will **replace the last space** 
-with an `&nbsp;` preventing an [orphan](http://en.wikipedia.org/wiki/Widows_and_orphans)
-from occurring.
+Unorphanize will replace the last space with `&nbsp;` without disturbing any inner HTML.
 
-
-If you wish the last line to have more than 2 words, you can supply an argument in `number` format like so:
+##Advanced Useage
 ```js
-$(".selector").unorphanize(2);
+$(".selector").unorphanize({
+  words: 3,
+  wrapEl: "span",
+  className: "u-nowrap"
+});
+```
+Unorphanize will wrap the last 3 words in a `<span>` with class `u-nowrap` without disturbing the inner HTML.
+
+Using a wrapper element is typically better than `&nbsp;` because you can use CSS to prevent orphans only on wider screens. This prevents long words from extending beyond the parent container on mobile devices.
+
+```css
+@media all and (min-width: 320px) {
+  .u-nowrap {
+    white-space: nowrap !important;
+  }
+}
 ```
 
-###Why it's better than "Plugin X"
-Unorphanize will recognize if you have HTML elements, and not ruin them: Most other plugins will do it a bit faster, 
-__*but*__ they will ignore HTML tags and put the space before/after them, or they will just not work. 
-They may also put the __*space inside of a html*__ entity like: `<a&nbsp;href="#">blah</a>` which as you can imagine is useless.  
-You should, however, _run it before you bind events_ to inner dom elements, or you may lose those events. Or you can 
-[delegate events from the parent](http://api.jquery.com/on/#direct-and-delegated-events) element.
-
-
-###Example
-
-    A Line of text which wraps and leaves an
-    orphan.
-    
-would change to:
-
-    A line of text which wraps and leaves 
-    an orphan.
-    
-and with `$(".selector").unorphanize(2);` we get:
-
-    A line of text which wraps and 
-    leaves an orphan.
+##Why is this plugin necessary?
+If your element only contains plain text, you could do something simpler like this:
+```js
+var $el = $('.selector');
+var words = $el.text().split(' ');
+var lastWord = words.pop();
+$el.html(words.join(' ') + '&nbsp;' + lastWord);
+```
+However, if the target element contains any HTML elements, they will be removed. Unorphanize preserves any inner HTML elements so you can safely use on user-generated content.
