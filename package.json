@@ -2,7 +2,7 @@
   "name": "jquery-unorphanize",
   "title": "jQuery Unorphanize",
   "description": "A jQuery helper for preventing orphans",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "main": "unorphanize.jquery.js",
   "files": [
     "unorphanize.jquery.js",
