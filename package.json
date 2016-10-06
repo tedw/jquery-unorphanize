@@ -12,7 +12,7 @@
   "author": "Ted Whitehead <hello@tedwhitehead.com>",
   "repository": {
     "type": "git",
-    "url": "git://github.com/Threespot/threespot-dot-com.git"
+    "url": "git://github.com/tedw/jquery-unorphanize.git"
   },
   "keywords": [
     "jquery",
