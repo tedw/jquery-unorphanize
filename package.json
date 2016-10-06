@@ -1,26 +1,42 @@
 {
-    "name": "jquery-unorphanize",
-    "version": "1.0.1",
-    "main": "unorphanize.jquery.js",
-    "description": "Prevent orphans in text with jQuery",
-    "repository": {
-        "type": "git",
-        "url": "https://github.com/simeydotme/jquery-unorphanize.git"
-    },
-    "license": "MIT",
-    "keywords": [
-        "jquery",
-        "orphan",
-        "widow",
-        "javascript",
-        "remove"
-    ],
-    "author": "Simon Goellner <simey.me@gmail.com>",
-    "scripts": {
-        "test": "echo \"Error: no test specified\" && exit 1"
-    },
-    "devDependencies": {
-        "grunt-contrib-uglify": "~0.2.4",
-        "grunt-contrib-jshint": "~0.6.4"
-    }
+  "name": "jquery-unorphanize",
+  "title": "jQuery Unorphanize",
+  "description": "A jQuery helper for preventing orphans",
+  "version": "1.0.0",
+  "main": "unorphanize.jquery.js",
+  "files": [
+    "unorphanize.jquery.js",
+    "unorphanize.jquery.min.js"
+  ],
+  "homepage": "https://github.com/tedw/jquery-unorphanize",
+  "author": "Ted Whitehead <hello@tedwhitehead.com>",
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/Threespot/threespot-dot-com.git"
+  },
+  "keywords": [
+    "jquery",
+    "orphan",
+    "typography",
+    "unorphan",
+    "widow"
+  ],
+  "bugs": {
+    "url": "https://github.com/tedw/jquery-unorphanize/issues"
+  },
+  "license": "Unlicense",
+  "engines": {
+    "node": "6.7.0",
+    "npm": "3.10.3"
+  },
+  "dependencies": {},
+  "devDependencies": {
+    "jshint": "^2.9.3",
+    "uglify-js": "^2.7.3"
+  },
+  "scripts": {
+    "lint": "jshint unorphanize.jquery.js",
+    "minify": "uglifyjs unorphanize.jquery.js --output unorphanize.jquery.min.js --compress conditionals=true --mangle toplevel -r '$'",
+  },
+  "prepublish": "lint && minify"
 }

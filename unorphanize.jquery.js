@@ -1,14 +1,14 @@
 //------------------------------------------------------------------------
 // jQuery Unorphanize Plugin
 //
-// Forked from https://github.com/simeydotme/jquery-unorphanize
+// Based on https://github.com/simeydotme/jquery-unorphanize
 // Plugin boilerplate from https://github.com/jquery-boilerplate/jquery-boilerplate
 //------------------------------------------------------------------------
+//jshint shadow:true
 
 // the semi-colon before function invocation is a safety net against concatenated
 // scripts and/or other plugins which may not be closed properly.
-;
-(function($, window, document, undefined) {
+;(function($, window, document, undefined) {
 
   "use strict";
 
@@ -64,7 +64,7 @@
 
       // 1. Let O be the result of calling ToObject passing
       //    the this value as the argument.
-      if (this == null) {
+      if (this === null) {
         throw new TypeError('"this" is null or not defined');
       }
 
