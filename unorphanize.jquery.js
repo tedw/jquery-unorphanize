@@ -3,14 +3,28 @@
 //
 // Based on https://github.com/simeydotme/jquery-unorphanize
 // Plugin boilerplate from https://github.com/jquery-boilerplate/jquery-boilerplate
+// CommonJS module wrapper from http://blog.npmjs.org/post/112712169830/making-your-jquery-plugin-work-better-with-npm
 //------------------------------------------------------------------------
 //jshint shadow:true
 
+// This function is called immediately. The second function is passed in
+// as the factory parameter to this function.
+
 // the semi-colon before function invocation is a safety net against concatenated
 // scripts and/or other plugins which may not be closed properly.
-;(function($, window, document, undefined) {
-
-  "use strict";
+;(function (factory) {
+  // If there is a variable named module and it has an exports property,
+  // then we're working in a Node-like environment. Use require to load
+  // the jQuery object that the module system is using and pass it in.
+  if ( typeof module === 'object' && typeof module.exports === 'object' ) {
+    factory(require('jquery'), window, document);
+  }
+  // Otherwise, we're working in a browser, so just pass in the global
+  // jQuery object.
+  else {
+    factory(jQuery, window, document);
+  }
+}(function($, window, document, undefined) {
 
   // undefined is used here as the undefined global variable in ECMAScript 3 is
   // mutable (ie. it can be changed by someone else). undefined isn't really being
@@ -65,7 +79,7 @@
       // 1. Let O be the result of calling ToObject passing
       //    the this value as the argument.
       if (this === null) {
-        throw new TypeError('"this" is null or not defined');
+        throw new TypeError('“this” is null or not defined');
       }
 
       var O = Object(this);
@@ -123,12 +137,12 @@
 
 
   // Create the defaults once
-  var pluginName = "unorphanize",
+  var pluginName = 'unorphanize',
     defaults = {
       words: 2,
-      wrapEl: "",
-      className: "",
-      append: ""
+      wrapEl: '',
+      className: '',
+      append: ''
     };
 
   // The actual plugin constructor
@@ -174,7 +188,7 @@
       this.startPlaceholders = [];
       for ( var i = 0; i < this.startTagsCount; i++ ) {
         // Push placeholder to array so we can replace it later
-        this.startPlaceholders.push( "__" + i + "__" );
+        this.startPlaceholders.push('__' + i + '__');
         // Replace tag with placeholder text
         this.text = this.text.replace( self.startTags[i], self.startPlaceholders[i] );
       }
@@ -187,7 +201,7 @@
       this.endPlaceholders = [];
       for ( var i = 0; i < this.endTagsCount; i++ ) {
         // Push placeholder to array so we can replace it later
-        this.endPlaceholders.push( "~~" + i + "~~" );
+        this.endPlaceholders.push('~~' + i + '~~');
         // Replace tag with placeholder text
         this.text = this.text.replace( self.endTags[i], self.endPlaceholders[i] );
       }
@@ -218,13 +232,13 @@
       this.cleanWordArray = this.cleanWordArray.filter( function(value) { return value; } );
 
       // Make sure word count is valid
-      if ( typeof this.settings.words !== "number" || this.settings.words < 1 ) {
+      if ( typeof this.settings.words !== 'number' || this.settings.words < 1 ) {
         this.settings.words = this._defaults.words;
       }
       // If only 1 orphan is specified, default to wrapping word, not using &nbsp;
       else if ( this.settings.words === 1 ) {
-        this.settings.wrapEl = ( this.settings.wrapEl.length ? this.settings.wrapEl : "span" );
-        this.settings.className = ( this.settings.className.length ? this.settings.className : "u-nowrap" );
+        this.settings.wrapEl = ( this.settings.wrapEl.length ? this.settings.wrapEl : 'span' );
+        this.settings.className = ( this.settings.className.length ? this.settings.className : 'u-nowrap' );
       }
       // Don't allow orphan count to exceed the number of words
       else if ( this.settings.words >= this.cleanWordArray.length ) {
@@ -244,13 +258,13 @@
       this.lastPart = self.wordArray.slice( self.lastWordIndex ).join(' ');
 
       // Validate settings variables
-      if ( typeof this.settings.wrapEl !== "string" ) {
+      if ( typeof this.settings.wrapEl !== 'string' ) {
         this.settings.wrapEl = this._defaults.wrapEl;
       }
-      if ( typeof this.settings.className !== "string" ) {
+      if ( typeof this.settings.className !== 'string' ) {
         this.settings.className = this._defaults.className;
       }
-      if ( typeof this.settings.append !== "string" ) {
+      if ( typeof this.settings.append !== 'string' ) {
         this.settings.append = this._defaults.append;
       }
 
@@ -284,10 +298,10 @@
   // preventing against multiple instantiations
   $.fn[pluginName] = function(options) {
     return this.each(function() {
-      if (!$.data(this, "plugin_" + pluginName)) {
-        $.data(this, "plugin_" + pluginName, new Plugin(this, options));
+      if (!$.data(this, 'plugin_' + pluginName)) {
+        $.data(this, 'plugin_' + pluginName, new Plugin(this, options));
       }
     });
   };
 
-})(jQuery, window, document);
+}));
