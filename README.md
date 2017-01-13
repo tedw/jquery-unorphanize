@@ -1,7 +1,8 @@
 #jQuery Unorphanize
 
 --------------------
-![gzip file size](https://badge-size.herokuapp.com/tedw/jquery-unorphanize/master/unorphanize.jquery.min.js?compression=gzip)
+![gzip file size](https://badge-size.herokuapp.com/tedw/jquery-unorphanize/master/unorphanize.jquery.min.js?compression=gzip)[![npm version](https://badge.fury.io/js/jquery-unorphanize.svg)](https://badge.fury.io/js/jquery-unorphanize)
+
 
 A jQuery helper for preventing [orphans](http://en.wikipedia.org/wiki/Widows_and_orphans). Originally forked from [simeydotme’s plugin](https://github.com/simeydotme), but with added functionality and significant refactoring.
 
